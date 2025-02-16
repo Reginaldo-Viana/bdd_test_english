@@ -27,7 +27,7 @@ jobs:
       - name: Run tests
         run: |
           TAG_ESPECIFIC=${{ github.event.inputs.tag }}
-          TAG_EXECUTION="${{ (github.event.inputs.tag && '@' || '') }}$TAG_ESPECIFICA" 
+          TAG_EXECUTION="${{ (github.event.inputs.tag && '@' || '') }}$TAG_ESPECIFIC" 
 
           echo "this tag execution: $TAG_EXECUTION"
 
