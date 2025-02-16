@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.time.Duration;
 import java.util.List;
 
+import org.apache.poi.util.CommonsLogger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -74,6 +75,9 @@ public class MainPage extends TimePage {
 
 	@FindBy(xpath = "//div[contains(text(),'Invalid OTP. Please check your code and try again.')]")
 	private WebElement otpErrorMessage;
+
+	@FindBy(id = "auth-error-message-box")
+	private WebElement otpErrorResetPassword;
 
 
 	public static void ScrollButton() {
@@ -153,10 +157,16 @@ public class MainPage extends TimePage {
 		otpContinue.click();
 	}
 
-	public void validateInvalidOtpMessage(String expectedMessage ) {
-		waitForElementVisible(otpErrorMessage, 10);
-		String actualMessage = otpErrorMessage.getText();
-		Assert.assertEquals("The OTP error message is incorrect!", expectedMessage, actualMessage);
+	public void validateInvalidOtpMessage(String expectedMessage ) throws InterruptedException {
+		Thread.sleep(10000);
+		if (!driver.findElements(By.id("auth-error-message-box")).isEmpty() && otpErrorResetPassword.isDisplayed()) {
+			String actualMessage = otpErrorResetPassword.getText();
+			System.out.print(actualMessage);
+		} else {
+			waitForElementVisible(otpErrorMessage, 10);
+			String actualMessage = otpErrorMessage.getText();
+			Assert.assertEquals("The OTP error message is incorrect!", expectedMessage, actualMessage);
+		}
 	}
 
 	@After

@@ -61,7 +61,7 @@ public class Steps {
 	}
 
 	@Then("the user should see a message {string}")
-	public void the_user_should_see_a_message(String string) {
+	public void the_user_should_see_a_message(String string) throws InterruptedException {
 		mainPage.validateInvalidOtpMessage(string);
 	}
 }
