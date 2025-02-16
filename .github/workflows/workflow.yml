@@ -30,10 +30,9 @@ jobs:
         run: mvn install
       - name: Run tests
         run: |
-          TAG_ESPECIFIC=${{ github.event.inputs.tag || matrix.tag }}
-          TAG_EXECUTION="${{ (github.event.inputs.tag || matrix.tag) && '@' || '' }}$TAG_ESPECIFIC"
-          echo "Executing tests with tag: $TAG_EXECUTION"
-          mvn test -Dcucumber.options="$TAG_EXECUTION" -Dsurefire.timeout.seconds=30
+          TAG=${{ github.event.inputs.tag }}
+          echo "Executing tests with tag: @$TAG" # Log para depuração
+          mvn test -Dcucumber.options="@$TAG" -Dsurefire.timeout.seconds=30 
       - name: Package and Upload Artifact
         run: mvn package
       - uses: actions/upload-artifact@v4
