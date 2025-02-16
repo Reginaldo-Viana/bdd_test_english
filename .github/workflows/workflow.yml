@@ -3,6 +3,11 @@ name: CI/CD
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to be executed (login or search)'
+        required: false
 
 jobs:
   build-and-test:
@@ -28,7 +33,7 @@ jobs:
           TAG_ESPECIFIC=${{ github.event.inputs.tag || matrix.tag }}
           TAG_EXECUTION="${{ (github.event.inputs.tag || matrix.tag) && '@' || '' }}$TAG_ESPECIFIC"
           echo "Executing tests with tag: $TAG_EXECUTION"
-          mvn test -Dcucumber.options="$TAG_EXECUTION" -Dsurefire.timeout.seconds=30 # Timeout e tag
+          mvn test -Dcucumber.options="$TAG_EXECUTION" -Dsurefire.timeout.seconds=30
       - name: Package and Upload Artifact
         run: mvn package
       - uses: actions/upload-artifact@v4
