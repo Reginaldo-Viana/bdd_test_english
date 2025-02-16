@@ -34,9 +34,7 @@ src
 🚀 Running the Project:
 1. Prerequisites:
 Java (JDK 11+) and Maven installed.
-ChromeDriver added to the system PATH.
 2. Configuration:
-In Browser.java, set the ChromeDriver path if needed.
 To run in headless mode or in a specific language, adjust the settings in the getChromeOptions() method.
 3. Install Dependencies:
 bash
