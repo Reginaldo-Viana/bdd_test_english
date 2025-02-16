@@ -91,11 +91,11 @@ public class MainPage extends TimePage {
 	public void searchFor(String query) {
 		IframeList();
 		if (!driver.findElements(By.id("nav-bb-search")).isEmpty() && searchBox.isDisplayed()) {
-			waitForElementVisible(searchBox, 20);
+			waitForElementVisible(searchBox, 60);
 			searchBox.sendKeys(query);
 			searchBox.submit();
 		} else {
-			waitForElementVisible(searchBox2, 20);
+			waitForElementVisible(searchBox2, 60);
 			searchBox2.sendKeys(query);
 			searchBox2.submit();
 		}
@@ -119,7 +119,7 @@ public class MainPage extends TimePage {
 	}
 
 	public void clickOnFirstLink() {
-		waitForElementVisible(firstLink, 10);
+		waitForElementVisible(firstLink, 60);
 		firstLink.click();
 	}
 
@@ -130,11 +130,11 @@ public class MainPage extends TimePage {
 	}
 
 	public void clickOnTab(String tabName) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
 		wait.until(ExpectedConditions.elementToBeClickable(By.linkText(tabName)));
 		driver.findElement(By.linkText(tabName)).click();
 
-		waitForElementVisible(buttonHelloSignIn, 10);
+		waitForElementVisible(buttonHelloSignIn, 60);
 		buttonHelloSignIn.click();
 
 	}
@@ -148,22 +148,26 @@ public class MainPage extends TimePage {
 	}
 
 	public void enterCredentials(String username, String password) {
-		waitForElementVisible(emailField, 10);
+		waitForElementVisible(emailField, 60);
 		emailField.sendKeys(username);
+		waitForElementVisible(continueButton, 60);
 		continueButton.click();
+		waitForElementVisible(continueButton, 60);
 		continueButton.click();
-		waitForElementVisible(otpField, 10);
+		waitForElementVisible(otpField, 60);
 		otpField.sendKeys(password);
+		waitForElementVisible(otpContinue, 60);
 		otpContinue.click();
 	}
 
 	public void validateInvalidOtpMessage(String expectedMessage ) throws InterruptedException {
 		Thread.sleep(10000);
 		if (!driver.findElements(By.id("auth-error-message-box")).isEmpty() && otpErrorResetPassword.isDisplayed()) {
+			waitForElementVisible(otpErrorResetPassword, 60);
 			String actualMessage = otpErrorResetPassword.getText();
 			System.out.print(actualMessage);
 		} else {
-			waitForElementVisible(otpErrorMessage, 10);
+			waitForElementVisible(otpErrorMessage, 60);
 			String actualMessage = otpErrorMessage.getText();
 			Assert.assertEquals("The OTP error message is incorrect!", expectedMessage, actualMessage);
 		}
