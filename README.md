@@ -40,8 +40,6 @@ In Browser.java, set the ChromeDriver path if needed.
 To run in headless mode or in a specific language, adjust the settings in the getChromeOptions() method.
 3. Install Dependencies:
 bash
-Copiar
-Editar
 mvn clean install
 4. Run Tests:
 mvn test
