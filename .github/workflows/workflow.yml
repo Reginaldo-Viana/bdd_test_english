@@ -39,10 +39,9 @@ jobs:
           echo "Execute tests with the tag: $TAG_EXECUTION"
           mvn test -Dcucumber.options="$TAG_EXECUTION"
       - name: Package application
-        run: mvn package
+        run: mvn package    
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # Linha atualizada
         with:
-          name: application-artifact 
+          name: application-artifact
           path: target/*.jar
-          TIMEOUT_SECONDS: 30
